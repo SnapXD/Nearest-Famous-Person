@@ -1,7 +1,7 @@
 ##############################################
 # Project Header
 #
-# CrimsonCode Hackaton 2019 - 2/23/2019
+# CrimsonCode Hackathon 2019 - 2/23/2019
 # Programmers:
 #  Christopher Roberts
 #  Brandon Garza
@@ -49,14 +49,16 @@ base_url = '/api/'
 @app.route('/')
 def begin():
     print("webpage")
-    return redirect(url_for(filename="index.html"))
+    return redirect(url_for(filename="UserInterface.html"))
 
 
 @app.route(base_url + "get_tweets", methods=["GET"])
 def get_tweets(location):
     try:
         tso = TwitterSearchOrder()  # create a TwitterSearchOrder object
-        tso.set_geocode(46.7281109, -117.1656875, 15, False)  # search tweets within 15 miles of the spark
+
+        # search tweets within 15 miles of the spark. this will be changed to the geocode of the location parameter
+        tso.set_geocode(46.7281109, -117.1656875, 15, False)
 
         ts = TwitterSearch(
             consumer_key='placeholder',
@@ -65,8 +67,10 @@ def get_tweets(location):
             access_token_secret='placeholder'
         )
 
-        for tweet in ts.search_tweets_iterable(tso):
-            print(tweet)
+        for tweet in ts.search_tweets_iterable(tso):  # should filter out unverified users here
+            print(tweet)  # we should add all of these into a dictionary or a list and return the closest one
+
+        # find the closest tweet from the dictionary / list and return tweet['user']. (This is a string)
 
     except TwitterSearchException as e:
         print(e)
