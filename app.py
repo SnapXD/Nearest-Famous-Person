@@ -46,18 +46,18 @@ from TwitterSearch import *
 
 if __name__ == "__main__":
     try:
-        tso = TwitterSearchOrder() # create a TwitterSearchOrder object
-        tso.set_geocode('placeholder') # search specific location
+        tso = TwitterSearchOrder()  # create a TwitterSearchOrder object
+        tso.set_geocode(46.7281109, -117.1656875, 15, False)  # search tweets within 15 miles of the spark
 
         ts = TwitterSearch(
-            consumer_key = 'placeholder',
-            consumer_secret = 'placeholder',
-            access_token = 'placeholder',
-            access_token_secret = 'placeholder'
+            consumer_key='placeholder',
+            consumer_secret='placeholder',
+            access_token='placeholder',
+            access_token_secret='placeholder'
         )
 
         for tweet in ts.search_tweets_iterable(tso):
-            print('placeholder')
+            print(tweet)
 
     except TwitterSearchException as e:
         print(e)
