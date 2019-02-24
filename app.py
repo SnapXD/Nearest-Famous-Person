@@ -26,25 +26,34 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import flask_sqlalchemy as sqlalchemy
 from flask import redirect, url_for
-# from flask import Response
-# from flask_login import LoginManager, UserMixin, current_user, login_user, login_required
-# from getpass import getpass
-# from flask import current_app
+from flask import Flask, jsonify, request
+from flask_cors import CORS
+import flask_sqlalchemy as sqlalchemy
+from flask import redirect, url_for
 from TwitterSearch import *
 # import datetime
 
 
-# app = Flask(__name__)
+app = Flask(__name__)
 # login_manager = LoginManager()
 # login_manager.init_app(app)
-# CORS(app)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlalchemy-demo.db'
+CORS(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlalchemy-demo.db'
 #
-# db = sqlalchemy.SQLAlchemy(app)
+db = sqlalchemy.SQLAlchemy(app)
 #
-# base_url = 'https://api.twitter.com/1.1/search/tweets.json'
+base_url = '/api/'
 
-if __name__ == "__main__":
+
+# this should redirect to the home page
+@app.route('/')
+def begin():
+    print("webpage")
+    return redirect(url_for(filename="index.html"))
+
+
+@app.route(base_url + "get_tweets", methods=["GET"])
+def get_tweets(location):
     try:
         tso = TwitterSearchOrder()  # create a TwitterSearchOrder object
         tso.set_geocode(46.7281109, -117.1656875, 15, False)  # search tweets within 15 miles of the spark
