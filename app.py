@@ -30,15 +30,34 @@ from flask import redirect, url_for
 # from flask_login import LoginManager, UserMixin, current_user, login_user, login_required
 # from getpass import getpass
 # from flask import current_app
+from TwitterSearch import *
 # import datetime
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
 # login_manager = LoginManager()
 # login_manager.init_app(app)
-CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlalchemy-demo.db'
+# CORS(app)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqlalchemy-demo.db'
+#
+# db = sqlalchemy.SQLAlchemy(app)
+#
+# base_url = 'https://api.twitter.com/1.1/search/tweets.json'
 
-db = sqlalchemy.SQLAlchemy(app)
+if __name__ == "__main__":
+    try:
+        tso = TwitterSearchOrder() # create a TwitterSearchOrder object
+        tso.set_geocode('placeholder') # search specific location
 
-base_url = 'https://api.twitter.com/1.1/search/tweets.json'
+        ts = TwitterSearch(
+            consumer_key = 'placeholder',
+            consumer_secret = 'placeholder',
+            access_token = 'placeholder',
+            access_token_secret = 'placeholder'
+        )
+
+        for tweet in ts.search_tweets_iterable(tso):
+            print('placeholder')
+
+    except TwitterSearchException as e:
+        print(e)
